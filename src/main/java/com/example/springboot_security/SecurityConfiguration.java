@@ -17,11 +17,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests().anyRequest().authenticated()
                 .and()
-                .formLogin();
+                .formLogin()
+                .loginPage(".login").permitAll();
 
         // for accessing H2 for debugging purpose
         httpSecurity.csrf().ignoringAntMatchers("/h2-console/**");
-        httpSecurity.headers().frameOptions().sameOrigin();
+        httpSecurity.headers().frameOptions().sameOrigin(); //added from 4.01
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
